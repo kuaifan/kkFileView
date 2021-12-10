@@ -7,7 +7,7 @@
     <#include "*/commonHeader.ftl">
     <style>
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         .container {
             width: 100%;

@@ -236,3 +236,11 @@ ofd 类型文件支持版本，本次版本重要功能均由社区开发贡献�
 #### GitHub
 
 [![Stargazers over time](https://starchart.cc/kekingcn/kkFileView.svg)](https://starchart.cc/kekingcn/kkFileView)
+
+
+## 编译
+
+```sh
+mvn clean package -DskipTests
+docker buildx build --platform linux/amd64 -t kuaifan/fileview:4.1.0 . --push
+```
