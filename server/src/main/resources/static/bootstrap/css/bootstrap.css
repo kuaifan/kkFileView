@@ -6755,3 +6755,11 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.black input,
+.black button,
+.black select,
+.black textarea {
+  font-family: initial;
+  font-size: initial;
+  line-height: initial;
+}
