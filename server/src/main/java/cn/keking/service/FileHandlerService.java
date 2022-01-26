@@ -270,6 +270,9 @@ public class FileHandlerService {
             type = FileType.typeFromUrl(url);
             suffix = WebUtils.suffixFromUrl(url);
         }
+        if (url.contains("?fileKey=")) {
+            attribute.setSkipDownLoad(true);
+        }
         attribute.setType(type);
         attribute.setName(fileName);
         attribute.setSuffix(suffix);
@@ -283,6 +286,11 @@ public class FileHandlerService {
             }
             if (StringUtils.hasText(fileKey)) {
                 attribute.setFileKey(fileKey);
+            }
+
+            String tifPreviewType = req.getParameter("tifPreviewType");
+            if (StringUtils.hasText(tifPreviewType)) {
+                attribute.setTifPreviewType(tifPreviewType);
             }
         }
         return attribute;
