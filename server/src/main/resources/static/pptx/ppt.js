@@ -208,13 +208,17 @@ function resetImgSize() {
 		ww = ww + 90 + leftW;
 		wh = wh + 80;
 	}
+	var ch = 0;
 	if (wh / ww < ratio) {
-		$('.slide-img-container').height(wh);
+		ch = wh
+		$('.slide-img-container').height(ch);
 		$('.slide-img-container').width(wh / ratio);
 	} else {
+		ch = ww * ratio
 		$('.slide-img-container').width(ww);
-		$('.slide-img-container').height(ww * ratio);
+		$('.slide-img-container').height(ch);
 	}
+	$('.slide-img-container').css({top: `${$(window).height() / 2 - 60 - (ch / 2)}px`})
 }
 
 $(document).keydown(function(event){
