@@ -21,7 +21,8 @@
         }
         @media (max-width: 768px) {
             .container {
-                margin: 0px auto;
+                padding-right: 0px;
+                padding-left: 0px;
             }
         }
     </style>
