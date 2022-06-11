@@ -67,6 +67,18 @@
         */
         cursor: pointer;
       }
+      .container-navbar {
+        display: flex;
+        align-items: center;
+      }
+      .container-navbar .nav-collapse {
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .lnk-file-title {
+          display: none;
+        }
+      }
     </style>
     
     <!--[if lt IE 9]>
@@ -86,7 +98,7 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container-fluid">
+        <div class="container-fluid container-navbar">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

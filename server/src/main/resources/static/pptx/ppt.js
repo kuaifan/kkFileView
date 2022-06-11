@@ -24,7 +24,9 @@ $(document).ready(function() {
 			slideCount = data.totalSize;
 			
 			// title
-			$('.container-fluid:first .btn:first').after('<a class="brand lnk-file-title" style="text-decoration: none;" href="' + contextPath + '/doc/download/' + uuid + (!!queryStr ? '?' + queryStr : '') + '" title="' + data.name + '">' + data.name + '</a>');
+			if (typeof uuid !== "undefined") {
+				$('.container-fluid:first .btn:first').after('<a class="brand lnk-file-title" style="text-decoration: none;" href="' + contextPath + '/doc/download/' + uuid + (!!queryStr ? '?' + queryStr : '') + '" title="' + data.name + '">' + data.name + '</a>');
+			}
 			document.title = data.name;
 			
 			// set ratio
@@ -105,6 +107,15 @@ $(document).ready(function() {
 		$('.slide-img-container').swiperight(function() { preSlide(); });
 	} catch (err) {
 
+	}
+
+	//
+	if (window.parent) {
+		window.parent.postMessage({
+			source: 'fileView',
+			action: 'ready',
+			params: {}
+		}, '*');
 	}
 });
 
