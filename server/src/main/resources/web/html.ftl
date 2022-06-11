@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <#include "*/commonHeader.ftl">
 </head>
-<body>
+<body style="overflow:hidden">
     <iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
 </body>
 <script type="text/javascript">
@@ -16,7 +16,7 @@
      */
     window.onresize = function(){
         var fm = document.getElementsByTagName("iframe")[0];
-        fm.height = window.document.documentElement.clientHeight-10;
+        fm.height = window.document.documentElement.clientHeight;
     }
     /*初始化水印*/
     window.onload = function() {
