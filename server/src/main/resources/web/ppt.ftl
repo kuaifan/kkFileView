@@ -74,6 +74,9 @@
       .container-navbar .nav-collapse {
         flex: 1;
       }
+      .slide-img-container {
+        right: 0px;
+      }
       @media (max-width: 768px) {
         .lnk-file-title {
           display: none;
