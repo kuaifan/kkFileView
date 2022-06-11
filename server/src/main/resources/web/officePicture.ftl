@@ -16,6 +16,9 @@
         .img-area {
             text-align: center
         }
+        .img-area img {
+            max-width: 100%;
+        }
 
     </style>
 </head>
@@ -35,6 +38,18 @@
         /*初始化水印*/
         initWaterMark();
         checkImgs();
+        /*图片点击事件*/
+        var array = [];
+        $(".img-area img").each(function(index, event) {
+            array.push($(event).attr("data-src"));
+            $(event).click(function() {
+                window.parent.postMessage({
+                    source: 'officePicture',
+                    index: index,
+                    array: array
+                }, "*");
+            });
+        })
     };
     window.onscroll = throttle(checkImgs);
     function changePreviewType(previewType) {
