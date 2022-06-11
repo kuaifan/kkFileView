@@ -19,11 +19,15 @@
         .img-area img {
             max-width: 100%;
         }
-
+        @media (max-width: 768px) {
+            .container {
+                margin: 0px auto;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container ">
     <#list imgurls as img>
         <div class="img-area">
             <img class="my-photo" alt="loading"  data-src="${img}" src="images/loading.gif">
@@ -39,17 +43,22 @@
         initWaterMark();
         checkImgs();
         /*图片点击事件*/
-        var array = [];
-        $(".img-area img").each(function(index, event) {
-            array.push($(event).attr("data-src"));
-            $(event).click(function() {
-                window.parent.postMessage({
-                    source: 'officePicture',
-                    index: index,
-                    array: array
-                }, "*");
+        if (window.parent) {
+            var array = [];
+            $(".img-area img").each(function(index, event) {
+                array.push($(event).attr("data-src"));
+                $(event).click(function() {
+                    window.parent.postMessage({
+                        source: 'fileView',
+                        action: 'picture',
+                        params: {
+                            index: index,
+                            array: array
+                        }                        
+                    }, "*");
+                });
             });
-        })
+        }
     };
     window.onscroll = throttle(checkImgs);
     function changePreviewType(previewType) {
