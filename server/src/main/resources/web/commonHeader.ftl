@@ -40,7 +40,8 @@
     function initParentMessage() {
         if (window.parent) {
             window.parent.postMessage({
-                act: 'ready',
+                source: 'fileView',
+                action: 'ready',
                 params: {}
             }, '*');
         }        
