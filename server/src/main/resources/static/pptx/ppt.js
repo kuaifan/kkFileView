@@ -65,12 +65,59 @@ $(document).ready(function() {
 		var selectNum = $(".select-page-selector option:selected").text();
 		gotoSlide(selectNum);
 	});
-	$('.slide-img-container .ppt-turn-left-mask').click(function () {
-		preSlide();
-	});
-	$('.slide-img-container .ppt-turn-right-mask').click(function () {
-		nextSlide();
-	});
+
+	var isSupportTouch = "ontouchend" in document;
+	var imgContainer = $('.slide-img-container');
+	var leftMask = $('.slide-img-container .ppt-turn-left-mask');
+	var rightMask = $('.slide-img-container .ppt-turn-right-mask');
+	if (isSupportTouch) {
+		leftMask.hide();
+		rightMask.hide();
+		var mRatio = Math.min(80, $(window).width() * 0.3)
+		var isTouch = false;
+		var touchMX
+		imgContainer[0].addEventListener('touchstart', function(e){
+            isTouch = true;
+			touchMX = e.touches[0].clientX;
+		});
+		imgContainer[0].addEventListener('touchmove', function(e){
+			if (isTouch) {
+				e.preventDefault();
+				var moX = touchMX - e.touches[0].clientX;
+				if (moX > mRatio) {
+					isTouch = false;
+					nextSlide();
+				} else if (moX < mRatio * -1) {
+					isTouch = false;
+					preSlide();
+				}
+			}
+		});
+		imgContainer[0].addEventListener('click', function() {
+			if (window.parent) {
+				var array = [];
+				$.each(pages, function(index, page) {
+					array.push(page.url);
+				});
+				window.parent.postMessage({
+					source: 'fileView',
+					action: 'picture',
+					params: {
+						index: getCurSlide() - 1,
+						array: array
+					}                        
+				}, "*");
+			}
+		});
+	} else {
+		leftMask.click(function () {
+			preSlide();
+		});
+		rightMask.click(function () {
+			nextSlide();
+		});
+	}
+
 
 	// Right click (NOT supported in SOUGOU browser)
 	/*
