@@ -1,6 +1,6 @@
 /**创建一个div并固定在底部，将center中的所有a标签放在改div中**/
-$("body").append($("<div>").css({"width":"100%","height":"30px","position":"fixed","top":"0","left":"0"
-    ,"background-color":"rgba(53, 53, 53, 1)","line-height":"30px","font-size":"13px"}).attr("id","excel-header-nav"));
+$("body").append($("<div>").css({"width":"100%","max-height":"93px","position":"sticky","bottom":"-1px","left":"0"
+    ,"background-color":"rgba(53, 53, 53, 1)","line-height":"30px","font-size":"13px","overflow":"auto","display":"flex","flex-wrap":"wrap"}).attr("id","excel-header-nav"));
 $("center").css("display", "none");
 var centerChildrenA = $("center").children("a");
 if (centerChildrenA.length === 0) {
@@ -11,8 +11,12 @@ $(centerChildrenA).each(function (a, b) {
     var href = $(b).attr("href");
     var name = href.substr(1);
     $("[name=" + name + "]").css({"display":"block","padding-top":"14.01px"});
-    $(b).css({"padding":"5px","border-right":"1px solid white","color":"#f9f9f9"});
+    $(b).css({"padding":"0 8px","border-right":"1px solid white","border-bottom":"1px solid white","color":"#f9f9f9"});
     $("#excel-header-nav").append(b);
 });
 /**给所有的table添加class=table table-striped样式**/
 $("table").addClass("table table-striped");
+/**去除顶部空白**/
+if ($("[name=table0]").length > 0) {
+    $("body").css("margin-top", $("[name=table0]")[0].offsetTop * -1)
+}
