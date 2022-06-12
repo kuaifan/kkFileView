@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        version: [ "4.1.0-SNAPSHOT-RC12" ]
+        version: [ "4.1.0-SNAPSHOT-RC13" ]
     steps:
       -
         name: Checkout
