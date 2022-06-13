@@ -2,7 +2,7 @@
 $("body").append($("<div>").css({
     "width": "100%",
     "max-height": "92px",
-    "position": "sticky",
+    "position": "fixed",
     "left": "0",
     "bottom": "0",
     "background-color": "rgba(53, 53, 53, 1)",
@@ -25,7 +25,11 @@ $(centerChildrenA).each(function (a, b) {
     // 获取a标签对应的target的name值，并设置name对应标签的样式以避免锚点标签标题被覆盖
     var href = $(b).attr("href");
     var name = href.substr(1);
-    $("[name=" + name + "]").css({"display": "block"});
+    $("[name=" + name + "]").css({
+        "display": "flex",
+        "flex-direction": "column",
+        "flex-wrap": "wrap",
+    });
     $(b).css({
         "padding": "0 8px",
         "border": "1px solid white",
@@ -36,10 +40,15 @@ $(centerChildrenA).each(function (a, b) {
     $("#excel-header-nav").append(b);
 });
 /**给所有的table添加class=table table-striped样式**/
-$("table").addClass("table table-striped").css("width", "auto");
+$("table").addClass("table table-striped");
 /**去除顶部空白**/
 var prev = $("[name=table0]").prev();
 while (prev.length > 0) {
     prev.hide();
     prev = prev.prev();
 }
+/**显示页面**/
+$('body').css({
+    'visibility': 'visible',
+    'padding-bottom': $("#excel-header-nav").height()
+})
