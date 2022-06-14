@@ -19,16 +19,14 @@
         .img-area img {
             max-width: 100%;
         }
-        @media (max-width: 768px) {
-            .container {
-                padding-right: 0px;
-                padding-left: 0px;
-            }
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
         }
     </style>
 </head>
 <body>
-<div class="container ">
+<div class="container">
     <#list imgurls as img>
         <div class="img-area">
             <img class="my-photo" alt="loading"  data-src="${img}" src="images/grey.gif">
@@ -55,7 +53,7 @@
                         params: {
                             index: index,
                             array: array
-                        }                        
+                        }
                     }, "*");
                 });
             });
