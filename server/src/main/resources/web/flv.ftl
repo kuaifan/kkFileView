@@ -13,13 +13,18 @@
     }
     .m {
         width: 1024px;
-        max-width: 100%;
         margin: 0 auto;
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 <body>
 <div class="m">
-    <video width="1024" id="videoElement"></video>
+    <video id="videoElement"></video>
 </div>
 <script>
     if (flvjs.isSupported()) {

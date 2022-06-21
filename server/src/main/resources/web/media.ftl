@@ -14,8 +14,30 @@
 
         .m {
             width: 1024px;
-            max-width: 100%;
             margin: 0 auto;
+            max-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .plyr,
+        .plyr--ready,
+        .plyr__video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .plyr--setup {
+            height: 100% !important;
+            width: 100% !important;
         }
     </style>
 </head>
