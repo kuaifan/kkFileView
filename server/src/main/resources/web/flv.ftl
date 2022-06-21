@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>多媒体文件预览</title>
     <script src="js/flv.min.js" type="text/javascript"></script>
     <#include "*/commonHeader.ftl">
@@ -12,6 +13,7 @@
     }
     .m {
         width: 1024px;
+        max-width: 100%;
         margin: 0 auto;
     }
 </style>

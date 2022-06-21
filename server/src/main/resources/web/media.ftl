@@ -2,6 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <title>多媒体文件预览</title>
     <link rel="stylesheet" href="plyr/plyr.css"/>
     <script type="text/javascript" src="plyr/plyr.js"></script>
@@ -13,6 +14,7 @@
 
         .m {
             width: 1024px;
+            max-width: 100%;
             margin: 0 auto;
         }
     </style>

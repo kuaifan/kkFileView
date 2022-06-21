@@ -3,15 +3,17 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <style type="text/css">
         body{
             margin: 0 auto;
-            width:900px;
             background-color: #CCB;
         }
         .container{
             width: 700px;
             height: 700px;
+            max-width: 90%;
+            max-height: 90%;
             margin: 0 auto;
         }
         img{
