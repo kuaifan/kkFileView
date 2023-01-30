@@ -147,7 +147,7 @@ public class FileHandlerService {
                     line = line.replace("charset=gb2312", "charset=utf-8");
                 }
                 if (line.contains("</head>")) {
-                    sb.append("<meta id=\"viewport\" name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=1, user-scalable=yes\">");
+                    sb.append("<meta id=\"viewport\" name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">");
                     sb.append("<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.min.css\">");
                     sb.append("<style>body{visibility:hidden}center{display:none}.table{table-layout:fixed;margin-bottom:0}</style>");
                 }
