@@ -1,3 +1,5 @@
+/**添加移动端可缩放**/
+$('head').append('<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">');
 /**创建一个div并固定在底部，将center中的所有a标签放在改div中**/
 $("body").append($("<div>").css({
     "width": "100%",
