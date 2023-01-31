@@ -153,6 +153,7 @@ public class FileHandlerService {
                 }
                 if (line.contains("</html>")) {
                     sb.append("<script src=\"js/jquery-3.0.0.min.js\" type=\"text/javascript\"></script>");
+                    sb.append("<script src=\"js/hammer.min.js\" type=\"text/javascript\"></script>");
                     sb.append("<script src=\"js/excel.header.js\" type=\"text/javascript\"></script>");
                 }
                 sb.append(line);

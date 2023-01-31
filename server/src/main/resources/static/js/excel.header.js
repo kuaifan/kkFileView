@@ -52,3 +52,6 @@ $('body').css({
     'visibility': 'visible',
     'padding-bottom': $("#excel-header-nav").height()
 })
+/**初始化缩放**/
+var scaleObject = new TouchMoveScale(document.body);
+scaleObject.picInit();

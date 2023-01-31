@@ -3,8 +3,6 @@ MAINTAINER chenjh "842761733@qq.com"
 ADD server/target/kkFileView-*.tar.gz /opt/
 COPY fonts/* /usr/share/fonts/chinese/
 RUN apt-get clean && apt-get update &&\
-	sed -i 's/http:\/\/archive.ubuntu.com/https:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list &&\
-	sed -i 's/# deb/deb/g' /etc/apt/sources.list &&\
 	apt-get install -y --reinstall ca-certificates &&\
 	apt-get clean && apt-get update &&\
 	apt-get install -y locales language-pack-zh-hans &&\
