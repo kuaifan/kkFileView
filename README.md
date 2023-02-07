@@ -257,3 +257,13 @@ epub   引用于 [ epub.js](https://github.com/futurepress/epub.js) 开源协议
 #### GitHub
 
 [![Stargazers over time](https://starchart.cc/kekingcn/kkFileView.svg)](https://starchart.cc/kekingcn/kkFileView)
+
+## 编译
+
+```sh
+mvn clean package -DskipTests
+// or
+mvn -B package --file pom.xml
+
+docker buildx build --platform linux/amd64 -t kuaifan/fileview:4.1.0 . --push
+```

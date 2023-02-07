@@ -149,12 +149,17 @@ public class FileHandlerService {
                 if (line.contains("charset=gb2312")) {
                     line = line.replace("charset=gb2312", "charset=utf-8");
                 }
+                if (line.contains("</head>")) {
+                    sb.append("<meta id=\"viewport\" name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">");
+                    sb.append("<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.min.css\">");
+                    sb.append("<style>body{visibility:hidden}center{display:none}.table{table-layout:fixed;margin-bottom:0}</style>");
+                }
+                if (line.contains("</html>")) {
+                    sb.append("<script src=\"js/jquery-3.6.1.min.js\" type=\"text/javascript\"></script>");
+                    sb.append("<script src=\"js/excel.header.js\" type=\"text/javascript\"></script>");
+                }
                 sb.append(line);
             }
-            // 添加sheet控制头
-            sb.append("<script src=\"js/jquery-3.6.1.min.js\" type=\"text/javascript\"></script>");
-            sb.append("<script src=\"js/excel.header.js\" type=\"text/javascript\"></script>");
-            sb.append("<link rel=\"stylesheet\" href=\"bootstrap/css/xlsx.css\">");
         } catch (IOException e) {
             e.printStackTrace();
         }

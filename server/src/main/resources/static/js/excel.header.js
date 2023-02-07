@@ -1,5 +1,5 @@
 /**创建一个div并固定在底部，将center中的所有a标签放在改div中**/
-$("body").append($("<div>").css({"width":"100%","height":"100%px","position":"fixed","top":"0","left":"0"
+$("body").append($("<div>").css({"width":"100%","height":"100%","position":"fixed","top":"0","left":"0"
     ,"background-color":"rgba(53, 53, 53, 1)","line-height":"30px","font-size":"13px"}).attr("id","excel-header-nav"));
 $("center").css("display", "none");
 var centerChildrenA = $("center").children("a");
