@@ -7,7 +7,7 @@
     <script src="js/lazyload.js"></script>
     <style>
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         .container {
             width: 100%;
@@ -27,14 +27,17 @@
             margin-left: 15px;
             padding:5px;
         }
-
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <#list imgurls as img>
         <div class="img-area">
-            <img class="my-photo" alt="loading"  data-src="${img}" src="images/loading.gif">
+            <img class="my-photo" alt="loading"  data-src="${img}" src="images/grey.gif">
         </div>
     </#list>
 </div>
@@ -46,6 +49,23 @@
         /*初始化水印*/
         initWaterMark();
         checkImgs();
+        /*图片点击事件*/
+        if (window.parent) {
+            var array = [];
+            $(".img-area img").each(function(index, event) {
+                array.push($(event).attr("data-src"));
+                $(event).click(function() {
+                    window.parent.postMessage({
+                        source: 'fileView',
+                        action: 'picture',
+                        params: {
+                            index: index,
+                            array: array
+                        }
+                    }, "*");
+                });
+            });
+        }
     };
     window.onscroll = throttle(checkImgs);
     function changePreviewType(previewType) {

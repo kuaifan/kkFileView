@@ -26,6 +26,20 @@
                 watermark_angle: ${watermarkAngle},
             });
         }
+        initParentMessage();
+    }
+    
+    /**
+     * 初始化parent消息
+     */
+    function initParentMessage() {
+        if (window.parent) {
+            window.parent.postMessage({
+                source: 'fileView',
+                action: 'ready',
+                params: {}
+            }, '*');
+        }
     }
 </script>
 

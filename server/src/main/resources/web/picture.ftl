@@ -8,7 +8,7 @@
     <script src="js/viewer.min.js"></script>
     <style>
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         #image { width: 800px; margin: 0 auto; font-size: 0;}
         #image li {  display: inline-block;width: 50px;height: 50px; margin-left: 1%; padding-top: 1%;}

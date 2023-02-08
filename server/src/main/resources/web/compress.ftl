@@ -10,7 +10,7 @@
     <script src="js/base64.min.js" type="text/javascript"></script>
     <style type="text/css">
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         h1, h2, h3, h4, h5, h6 {color: #2f332a;font-weight: bold;font-family: Helvetica, Arial, sans-serif;padding-bottom: 5px;}
         h1 {font-size: 24px;line-height: 34px;text-align: center;}

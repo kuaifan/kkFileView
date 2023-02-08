@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <style type="text/css">
         body {
             margin: 0 auto;
-            width: 900px;
             background-color: #CCB;
         }
 
         .container {
             width: 700px;
             height: 700px;
+            max-width: 90%;
+            max-height: 90%;
             margin: 0 auto;
         }
 
@@ -38,7 +40,6 @@
         该(${fileType})文件，系统暂不支持在线预览，具体原因如下：
         <p style="color: red;">${msg}</p>
     </span>
-    <p>有任何疑问，请加入kk开源社区知识星球咨询：<a href="https://t.zsxq.com/09ZHSXbsQ">https://t.zsxq.com/09ZHSXbsQ</a><br></p>
 </div>
 </body>
 </html>
