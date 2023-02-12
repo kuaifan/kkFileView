@@ -17,15 +17,11 @@
             text-align: center;
         }
         img {
-            max-width: 98%;
+            max-width: 100%;
             margin:0 auto;
             border-radius:3px;
             box-shadow:rgba(0,0,0,0.15) 0 0 8px;
             background:#FBFBFB;
-            border:1px solid #ddd;
-            margin:1px auto;
-            margin-left: 15px;
-            padding:5px;
         }
         .container {
             padding-right: 0px;

@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+
+jobs:
+  fileview:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'kuaifan/kkFileView' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        version: [ "4.1.0-SNAPSHOT-RC19" ]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      -
+        name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: maven
+
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      -
+        name: Build and push Docker image kuaifan/fileview
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: kuaifan/fileview:4.1.0-SNAPSHOT-RC19
+
+      -
+        name: Image digest of kuaifan/fileview
+        run: echo ${{ steps.docker_build.outputs.digest }}
