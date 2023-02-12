@@ -8,9 +8,9 @@
     <#include "*/commonHeader.ftl">
     <#include "*/needFilePasswordHeader.ftl">
 </head>
-<body>
-<iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
 <body style="overflow:hidden">
+    <iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
+</body>
 
 <script type="text/javascript">
     needFilePassword();

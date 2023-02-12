@@ -20,7 +20,9 @@ $(document).ready(function () {
         slideCount = data.totalSize;
 
         // title
-        $('.container-fluid:first .btn:first').after('<a class="brand lnk-file-title" style="text-decoration: none;">' + data.name + '</a>');
+        if (typeof uuid !== "undefined") {
+            $('.container-fluid:first .btn:first').after('<a class="brand lnk-file-title" style="text-decoration: none;">' + data.name + '</a>');
+        }
         document.title = data.name;
 
         // set ratio
@@ -57,12 +59,58 @@ $(document).ready(function () {
         var selectNum = $(".select-page-selector option:selected").text();
         gotoSlide(selectNum);
     });
-    $('.slide-img-container .ppt-turn-left-mask').click(function () {
-        preSlide();
-    });
-    $('.slide-img-container .ppt-turn-right-mask').click(function () {
-        nextSlide();
-    });
+
+	var isSupportTouch = "ontouchend" in document;
+	var imgContainer = $('.slide-img-container');
+	var leftMask = $('.slide-img-container .ppt-turn-left-mask');
+	var rightMask = $('.slide-img-container .ppt-turn-right-mask');
+	if (isSupportTouch) {
+		leftMask.hide();
+		rightMask.hide();
+		var mRatio = Math.min(80, $(window).width() * 0.3)
+		var isTouch = false;
+		var touchMX
+		imgContainer[0].addEventListener('touchstart', function(e){
+            isTouch = true;
+			touchMX = e.touches[0].clientX;
+		});
+		imgContainer[0].addEventListener('touchmove', function(e){
+			if (isTouch) {
+				e.preventDefault();
+				var moX = touchMX - e.touches[0].clientX;
+				if (moX > mRatio) {
+					isTouch = false;
+					nextSlide();
+				} else if (moX < mRatio * -1) {
+					isTouch = false;
+					preSlide();
+				}
+			}
+		});
+		imgContainer[0].addEventListener('click', function() {
+			if (window.parent) {
+				var array = [];
+				$.each(pages, function(index, page) {
+					array.push(page.url);
+				});
+				window.parent.postMessage({
+					source: 'fileView',
+					action: 'picture',
+					params: {
+						index: getCurSlide() - 1,
+						array: array
+					}                        
+				}, "*");
+			}
+		});
+	} else {
+		leftMask.click(function () {
+			preSlide();
+		});
+		rightMask.click(function () {
+			nextSlide();
+		});
+	}
 
     // Right click (NOT supported in SOUGOU browser)
     /*
@@ -104,6 +152,15 @@ $(document).ready(function () {
     } catch (err) {
 
     }
+    
+	//
+	if (window.parent) {
+		window.parent.postMessage({
+			source: 'fileView',
+			action: 'ready',
+			params: {}
+		}, '*');
+	}
 });
 
 var remainContentInterval;
@@ -180,29 +237,44 @@ $(window).resize(function () {
 });
 
 function resetImgSize() {
-    var leftW = $('.row-fluid .span2').width() + 40;
+    var ww;
+	var wh = $(window).height() - 90;
+	var span2 = $('.row-fluid .span2');
     var windowW = $(window).width();
     if (windowW < 768) {
-        leftW = -40;
         $('.hidden-phone').css('display', 'none');
         $('.span9').removeClass('offset2');
+        ww = windowW - $('.span9').offset().left * 2;
     } else {
         $('.hidden-phone').css('display', 'block');
         $('.span9').addClass('offset2');
+        ww = windowW - $('.span9').offset().left * 2 + span2.outerWidth() + span2.offset().left;
     }
-    var ww = $(window).width() - 120 - leftW;
-    var wh = $(window).height() - 90;
     if (screenfull.isFullscreen) {
-        ww = ww + 90 + leftW;
+		ww = windowW - 30;
         wh = wh + 80;
     }
+	var ch;
     if (wh / ww < ratio) {
-        $('.slide-img-container').height(wh);
+		ch = wh
+		$('.slide-img-container').height(ch);
         $('.slide-img-container').width(wh / ratio);
     } else {
+		ch = ww * ratio
         $('.slide-img-container').width(ww);
-        $('.slide-img-container').height(ww * ratio);
+		$('.slide-img-container').height(ch);
+	}
+	//
+	var tbh;
+	if (screenfull.enabled) {
+		tbh = 60;
+		$('.navbar').show();
+	} else {
+		tbh = 75;
+		$('.navbar').hide();
     }
+	$('.slide-img-container').css('top', `${$(window).height() / 2 - tbh - (ch / 2)}px`);
+	$('.slide-img-container img').css('box-sizing', 'border-box');
 }
 
 $(document).keydown(function (event) {

@@ -20,6 +20,14 @@ PADDING-RIGHT: 1px; PADDING-LEFT: 1px; FONT-SIZE: 100%;
   MARGIN: 1px; COLOR: #fff;
  BACKGROUND-COLOR: #000; TEXT-ALIGN: left ;
 }
+DIV.black button,
+DIV.black input,
+DIV.black optgroup,
+DIV.black select,
+DIV.black textarea {
+  color: initial;
+  font: initial;
+}
 DIV.black A {
 BORDER-RIGHT: #909090 1px solid; PADDING-RIGHT: 5px;
 BACKGROUND-POSITION: 50% bottom; BORDER-TOP: #909090 1px solid;
