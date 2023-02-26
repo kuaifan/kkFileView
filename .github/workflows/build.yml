@@ -10,10 +10,6 @@ jobs:
   fileview:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'kuaifan/kkFileView' }}
-    strategy:
-      fail-fast: true
-      matrix:
-        version: [ "4.1.0-SNAPSHOT-RC19" ]
     steps:
       -
         name: Checkout
@@ -54,7 +50,7 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64
           push: true
-          tags: kuaifan/fileview:4.1.0-SNAPSHOT-RC19
+          tags: kuaifan/fileview:4.1.0-SNAPSHOT-RC20
 
       -
         name: Image digest of kuaifan/fileview

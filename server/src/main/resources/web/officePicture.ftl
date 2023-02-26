@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>PDF图片预览</title>
     <#include "*/commonHeader.ftl">
+    <script src="js/jquery-3.6.1.min.js" type="text/javascript"></script>
     <script src="js/lazyload.js"></script>
     <style>
         body {
