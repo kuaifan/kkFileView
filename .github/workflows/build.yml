@@ -7,51 +7,52 @@ on:
   pull_request:
 
 jobs:
-  fileview:
+  build:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'kuaifan/kkFileView' }}
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
-      -
-        name: Set up JDK 11
+      - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
+          java-version: '8'
           distribution: 'adopt'
           cache: maven
-
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      -
-        name: Build and push Docker image kuaifan/fileview
+      - name: Get current date
+        id: date
+        run: echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile
-          platforms: linux/amd64
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: kuaifan/fileview:4.1.0-SNAPSHOT-RC20
+          tags: kuaifan/fileview:4.3.0-SNAPSHOT-RC21
 
-      -
-        name: Image digest of kuaifan/fileview
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

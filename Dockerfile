@@ -1,9 +1,3 @@
-FROM keking/kkfileview-jdk:latest
-MAINTAINER chenjh "842761733@qq.com"
-ADD server/target/kkFileView-*.tar.gz /opt/
-ENV KKFILEVIEW_BIN_FOLDER /opt/kkFileView-4.4.0-SNAPSHOT/bin
-ENTRYPOINT ["java","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/kkFileView-4.4.0-SNAPSHOT/config/application.properties","-jar","/opt/kkFileView-4.4.0-SNAPSHOT/bin/kkFileView-4.4.0-SNAPSHOT.jar"]
-
 FROM ubuntu:20.04
 MAINTAINER chenjh "842761733@qq.com"
 COPY docker/kkfileview-jdk/fonts/* /usr/share/fonts/chinese/
@@ -38,6 +32,6 @@ ENV KK_FILE_UPLOAD_ENABLED false
 ENV KK_FILE_DIR /var/kkfileview/data
 ENV KKFILEVIEW_BIN_FOLDER /opt/kkFileView/bin
 
-ADD server/target/kkFileView-*.tar.gz /opt/kkFileView
-RUN mv /opt/kkFileView/kkFileView*/* /opt/kkFileView && mv /opt/kkFileView/bin/kkFileView*.jar /opt/kkFileView/bin/kkFileView.jar
-ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/kkFileView/config/application.properties","-jar","/opt/kkFileView/bin/kkFileView.jar"]
+ADD server/target/kkFileView-*.tar.gz /opt/
+ENV KKFILEVIEW_BIN_FOLDER /opt/kkFileView-4.4.0-SNAPSHOT/bin
+ENTRYPOINT ["java","-Dfile.encoding=UTF-8","-Dspring.config.location=/opt/kkFileView-4.4.0-SNAPSHOT/config/application.properties","-jar","/opt/kkFileView-4.4.0-SNAPSHOT/bin/kkFileView-4.4.0-SNAPSHOT.jar"]
