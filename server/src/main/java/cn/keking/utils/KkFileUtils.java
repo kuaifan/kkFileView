@@ -1,7 +1,9 @@
 package cn.keking.utils;
 
+import cn.keking.config.ConfigConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
@@ -102,7 +104,9 @@ public class KkFileUtils {
     public static String htmlEscape(String input) {
         if(StringUtils.hasText(input)){
             //input = input.replaceAll("\\{", "%7B").replaceAll("}", "%7D").replaceAll("\\\\", "%5C");
-            return HtmlUtils.htmlEscape(input, "UTF-8");
+            String htmlStr = HtmlUtils.htmlEscape(input, "UTF-8");
+            //& -> &amp;
+            return htmlStr.replace("&amp;", "&");
         }
         return input;
     }
@@ -172,6 +176,21 @@ public class KkFileUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 判断文件是否允许上传
+     *
+     * @param file 文件扩展名
+     * @return 是否允许上传
+     */
+    public static boolean isAllowedUpload(String file) {
+        String fileType = suffixFromFileName(file);
+            for (String type : ConfigConstants.getProhibit()) {
+            if (type.equals(fileType))
+                return false;
+        }
+        return !ObjectUtils.isEmpty(fileType);
     }
 
 }

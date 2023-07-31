@@ -18,8 +18,8 @@ public interface FilePreview {
     String TIFF_FILE_PREVIEW_PAGE = "tiff";
     String OFD_FILE_PREVIEW_PAGE = "ofd";
     String SVG_FILE_PREVIEW_PAGE = "svg";
-    String Online3D_FILE_PAGE = "online3D";
-    String EpubFilePreviewImpl = "epub";
+    String ONLINE3D_PREVIEW_PAGE = "online3D";
+    String EPUB_PREVIEW_PAGE = "epub";
     String XMIND_FILE_PREVIEW_PAGE = "xmind";
     String EML_FILE_PREVIEW_PAGE = "eml";
     String OFFICE_PICTURE_FILE_PREVIEW_PAGE = "officePicture";
@@ -28,7 +28,11 @@ public interface FilePreview {
     String EXEL_FILE_PREVIEW_PAGE = "html";
     String XML_FILE_PREVIEW_PAGE = "xml";
     String MARKDOWN_FILE_PREVIEW_PAGE = "markdown";
+    String BPMN_FILE_PREVIEW_PAGE = "bpmn";
+    String DCM_FILE_PREVIEW_PAGE = "dcm";
+    String DRAWUI_FILE_PREVIEW_PAGE = "drawio";
     String NOT_SUPPORTED_FILE_PAGE = "fileNotSupported";
+    String XLSX_FILE_PREVIEW_PAGE = "officeweb";
 
     String filePreviewHandle(String url, Model model, FileAttribute fileAttribute);
 }

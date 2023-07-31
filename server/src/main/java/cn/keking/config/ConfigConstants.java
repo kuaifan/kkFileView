@@ -42,9 +42,27 @@ public class ConfigConstants {
     private static String pdfBookmarkDisable;
     private static Boolean fileUploadDisable;
     private static String tifPreviewType;
+    private static String beian;
+    private static String[] prohibit = {};
+    private static String size;
+    private static String password;
+    private static int pdf2JpgDpi;
+    private static String officeTypeWeb;
+    private static String cadPreviewType;
+    private static Boolean deleteSourceFile;
+    private static Boolean deleteCaptcha;
+    private static String officePageRange;
+    private static String officeWatermark;
+    private static String officeQuality;
+    private static String officeMaxImageResolution;
+    private static Boolean officeExportBookmarks;
+    private static Boolean officeExportNotes;
+    private static Boolean officeDocumentOpenPasswords;
+    private static String cadTimeout;
+    private static int cadThread;
 
     public static final String DEFAULT_CACHE_ENABLED = "true";
-    public static final String DEFAULT_TXT_TYPE = "txt,html,htm,asp,jsp,xml,json,properties,md,gitignore,log,java,py,c,cpp,sql,sh,bat,m,bas,prg,cmd";
+    public static final String DEFAULT_TXT_TYPE = "txt,html,htm,asp,jsp,xml,json,properties,md,gitignore,log,java,py,c,cpp,sql,sh,bat,m,bas,prg,cmd,xbrl";
     public static final String DEFAULT_MEDIA_TYPE = "mp3,wav,mp4,flv";
     public static final String DEFAULT_OFFICE_PREVIEW_TYPE = "image";
     public static final String DEFAULT_OFFICE_PREVIEW_SWITCH_DISABLED = "false";
@@ -62,6 +80,27 @@ public class ConfigConstants {
     public static final String DEFAULT_PDF_BOOKMARK_DISABLE = "true";
     public static final String DEFAULT_FILE_UPLOAD_DISABLE = "false";
     public static final String DEFAULT_TIF_PREVIEW_TYPE = "tif";
+    public static final String DEFAULT_CAD_PREVIEW_TYPE = "pdf";
+    public static final String DEFAULT_BEIAN = "无";
+    public static final String DEFAULT_SIZE = "500MB";
+    public static final String DEFAULT_PROHIBIT = "exe,dll";
+    public static final String DEFAULT_PASSWORD = "123456";
+    public static final String DEFAULT_PDF2_JPG_DPI = "105";
+    public static final String DEFAULT_OFFICE_TYPE_WEB = "web";
+    public static final String DEFAULT_DELETE_SOURCE_FILE = "true";
+    public static final String DEFAULT_DELETE_CAPTCHA = "false";
+
+
+    public static final String DEFAULT_CAD_TIMEOUT = "90";
+    public static final String DEFAULT_CAD_THREAD = "5";
+
+    public static final String DEFAULT_OFFICE_PAQERANQE = "false";
+    public static final String DEFAULT_OFFICE_WATERMARK = "false";
+    public static final String DEFAULT_OFFICE_QUALITY = "80";
+    public static final String DEFAULT_OFFICE_MAXIMAQERESOLUTION = "150";
+    public static final String DEFAULT_OFFICE_EXPORTBOOKMARKS = "true";
+    public static final String DEFAULT_OFFICE_EXPORTNOTES = "true";
+    public static final String DEFAULT_OFFICE_EOCUMENTOPENPASSWORDS = "true";
 
     public static Boolean isCacheEnabled() {
         return cacheEnabled;
@@ -80,7 +119,7 @@ public class ConfigConstants {
         return simTexts;
     }
 
-    @Value("${simText:txt,html,htm,asp,jsp,xml,json,properties,md,gitignore,log,java,py,c,cpp,sql,sh,bat,m,bas,prg,cmd}")
+    @Value("${simText:txt,html,htm,asp,jsp,xml,json,properties,md,gitignore,log,java,py,c,cpp,sql,sh,bat,m,bas,prg,cmd,xbrl}")
     public void setSimText(String simText) {
         String[] simTextArr = simText.split(",");
         setSimTextValue(simTextArr);
@@ -353,4 +392,225 @@ public class ConfigConstants {
     public static void setTifPreviewTypeValue(String tifPreviewType) {
         ConfigConstants.tifPreviewType = tifPreviewType;
     }
+
+    public static String getBeian() {
+        return beian;
+    }
+    @Value("${beian:default}")
+    public void setBeian(String beian) {
+        setBeianValue(beian);
+    }
+    public static void setBeianValue(String beian) {
+        ConfigConstants.beian = beian;
+    }
+    public static String[] getProhibit() {
+        return prohibit;
+    }
+    @Value("${prohibit:exe,dll}")
+    public void setProhibit(String prohibit) {
+        String[] prohibitArr = prohibit.split(",");
+        setProhibitValue(prohibitArr);
+    }
+
+    public static void setProhibitValue(String[] prohibit) {
+        ConfigConstants.prohibit = prohibit;
+    }
+    public static String maxSize() {
+        return size;
+    }
+    @Value("${spring.servlet.multipart.max-file-size:500MB}")
+    public void setSize(String size) {
+        setSizeValue(size);
+    }
+    public static void setSizeValue(String size) {
+        ConfigConstants.size = size;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+    @Value("${delete.password:123456}")
+    public void setPassword(String password) {
+        setPasswordValue(password);
+    }
+    public static void setPasswordValue(String password) {
+        ConfigConstants.password = password;
+    }
+
+
+    public static int getPdf2JpgDpi() {
+        return pdf2JpgDpi;
+    }
+    @Value("${pdf2jpg.dpi:105}")
+    public void pdf2JpgDpi(int pdf2JpgDpi) {
+        setPdf2JpgDpiValue(pdf2JpgDpi);
+    }
+    public static void setPdf2JpgDpiValue(int pdf2JpgDpi) {
+        ConfigConstants.pdf2JpgDpi = pdf2JpgDpi;
+    }
+
+    public static String getOfficeTypeWeb() {
+        return officeTypeWeb;
+    }
+    @Value("${office.type.web:web}")
+    public void setOfficeTypeWeb(String officeTypeWeb) {
+        setOfficeTypeWebValue(officeTypeWeb);
+    }
+    public static void setOfficeTypeWebValue(String officeTypeWeb) {
+        ConfigConstants.officeTypeWeb = officeTypeWeb;
+    }
+
+
+    public static Boolean getDeleteSourceFile() {
+        return deleteSourceFile;
+    }
+
+    @Value("${delete.source.file:true}")
+    public void setDeleteSourceFile(Boolean deleteSourceFile) {
+        setDeleteSourceFileValue(deleteSourceFile);
+    }
+
+    public static void setDeleteSourceFileValue(Boolean deleteSourceFile) {
+        ConfigConstants.deleteSourceFile = deleteSourceFile;
+    }
+
+    public static Boolean getDeleteCaptcha() {
+        return deleteCaptcha;
+    }
+
+    @Value("${delete.captcha:false}")
+    public void setDeleteCaptcha(Boolean deleteCaptcha) {
+        setDeleteCaptchaValue(deleteCaptcha);
+    }
+
+    public static void setDeleteCaptchaValue(Boolean deleteCaptcha) {
+        ConfigConstants.deleteCaptcha = deleteCaptcha;
+    }
+
+    /**
+     * 以下为cad转换模块设置
+     */
+
+    public static String getCadPreviewType() {
+        return cadPreviewType;
+    }
+
+    @Value("${cad.preview.type:svg}")
+    public void setCadPreviewType(String cadPreviewType) {
+        setCadPreviewTypeValue(cadPreviewType);
+    }
+
+    public static void setCadPreviewTypeValue(String cadPreviewType) {
+        ConfigConstants.cadPreviewType = cadPreviewType;
+    }
+
+
+    public static String getCadTimeout() {
+        return cadTimeout;
+    }
+
+    @Value("${cad.timeout:90}")
+    public void setCadTimeout(String cadTimeout) {
+        setCadTimeoutValue(cadTimeout);
+    }
+
+    public static void setCadTimeoutValue(String cadTimeout) {
+        ConfigConstants.cadTimeout = cadTimeout;
+    }
+
+
+    public static int getCadThread() {
+        return cadThread;
+    }
+
+    @Value("${cad.thread:5}")
+    public void setCadThread(int cadThread) {
+        setCadThreadValue(cadThread);
+    }
+
+    public static void setCadThreadValue(int cadThread) {
+        ConfigConstants.cadThread = cadThread;
+    }
+
+    /**
+     * 以下为OFFICE转换模块设置
+     */
+
+    public static String getOfficePageRange() {
+        return officePageRange;
+    }
+    @Value("${office.pagerange:false}")
+    public void setOfficePageRange(String officePageRange) {
+        setOfficePageRangeValue(officePageRange);
+    }
+    public static void setOfficePageRangeValue(String officePageRange) {
+        ConfigConstants.officePageRange = officePageRange;
+    }
+
+    public static String getOfficeWatermark() {
+        return officeWatermark;
+    }
+    @Value("${office.watermark:false}")
+    public void setOfficeWatermark(String officeWatermark) {
+        setOfficeWatermarkValue(officeWatermark);
+    }
+    public static void setOfficeWatermarkValue(String officeWatermark) {
+        ConfigConstants.officeWatermark = officeWatermark;
+    }
+
+    public static String getOfficeQuality() {
+        return officeQuality;
+    }
+    @Value("${office.quality:80}")
+    public void setOfficeQuality(String officeQuality) {
+        setOfficeQualityValue(officeQuality);
+    }
+    public static void setOfficeQualityValue(String officeQuality) {
+        ConfigConstants.officeQuality = officeQuality;
+    }
+
+    public static String getOfficeMaxImageResolution() {
+        return officeMaxImageResolution;
+    }
+    @Value("${office.maximageresolution:150}")
+    public void setOfficeMaxImageResolution(String officeMaxImageResolution) {
+        setOfficeMaxImageResolutionValue(officeMaxImageResolution);
+    }
+    public static void setOfficeMaxImageResolutionValue(String officeMaxImageResolution) {
+        ConfigConstants.officeMaxImageResolution = officeMaxImageResolution;
+    }
+
+    public static Boolean getOfficeExportBookmarks() {
+        return officeExportBookmarks;
+    }
+    @Value("${office.exportbookmarks:true}")
+    public void setOfficeExportBookmarks(Boolean officeExportBookmarks) {
+        setOfficeExportBookmarksValue(officeExportBookmarks);
+    }
+    public static void setOfficeExportBookmarksValue(Boolean officeExportBookmarks) {
+        ConfigConstants.officeExportBookmarks = officeExportBookmarks;
+    }
+
+    public static Boolean getOfficeExportNotes() {
+        return officeExportNotes;
+    }
+    @Value("${office.exportnotes:true}")
+    public void setExportNotes(Boolean officeExportNotes) {
+        setOfficeExportNotesValue(officeExportNotes);
+    }
+    public static void setOfficeExportNotesValue(Boolean officeExportNotes) {
+        ConfigConstants.officeExportNotes = officeExportNotes;
+    }
+
+    public static Boolean getOfficeDocumentOpenPasswords() {
+        return officeDocumentOpenPasswords;
+    }
+    @Value("${office.documentopenpasswords:true}")
+    public void setDocumentOpenPasswords(Boolean officeDocumentOpenPasswords) {
+        setOfficeDocumentOpenPasswordsValue(officeDocumentOpenPasswords);
+    }
+    public static void setOfficeDocumentOpenPasswordsValue(Boolean officeDocumentOpenPasswords) {
+        ConfigConstants.officeDocumentOpenPasswords = officeDocumentOpenPasswords;
+    }
+
 }

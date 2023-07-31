@@ -43,6 +43,7 @@ public class WebConfig implements WebMvcConfigurer {
         Set<String> filterUri = new HashSet<>();
         filterUri.add("/onlinePreview");
         filterUri.add("/picturesPreview");
+        filterUri.add("/getCorsFile");
         TrustHostFilter filter = new TrustHostFilter();
         FilterRegistrationBean<TrustHostFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
@@ -67,6 +68,7 @@ public class WebConfig implements WebMvcConfigurer {
     public FilterRegistrationBean<BaseUrlFilter> getBaseUrlFilter() {
         Set<String> filterUri = new HashSet<>();
         filterUri.add("/index");
+        filterUri.add("/");
         filterUri.add("/onlinePreview");
         filterUri.add("/picturesPreview");
         BaseUrlFilter filter = new BaseUrlFilter();
@@ -80,6 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
     public FilterRegistrationBean<AttributeSetFilter> getWatermarkConfigFilter() {
         Set<String> filterUri = new HashSet<>();
         filterUri.add("/index");
+        filterUri.add("/");
         filterUri.add("/onlinePreview");
         filterUri.add("/picturesPreview");
         AttributeSetFilter filter = new AttributeSetFilter();

@@ -2,7 +2,11 @@ package cn.keking.utils;
 
 import io.mola.galimatias.GalimatiasParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Base64Utils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.ServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -22,6 +26,8 @@ import java.util.regex.Pattern;
  **/
 public class WebUtils {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebUtils.class);
+    private static final String BASE64_MSG = "base64"; 
     /**
      * 获取标准的URL
      *
@@ -103,6 +109,30 @@ public class WebUtils {
         return noQueryUrl.substring(noQueryUrl.lastIndexOf("/") + 1);
     }
 
+    /**
+     * 从url中剥离出文件名
+     * @param file 文件
+     * @return 文件名
+     */
+    public static String getFileNameFromMultipartFile(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        //判断是否为IE浏览器的文件名，IE浏览器下文件名会带有盘符信
+        // escaping dangerous characters to prevent XSS
+        assert fileName != null;
+        fileName = HtmlUtils.htmlEscape(fileName, KkFileUtils.DEFAULT_FILE_ENCODING);
+
+        // Check for Unix-style path
+        int unixSep = fileName.lastIndexOf('/');
+        // Check for Windows-style path
+        int winSep = fileName.lastIndexOf('\\');
+        // Cut off at latest possible point
+        int pos = (Math.max(winSep, unixSep));
+        if (pos != -1) {
+            fileName = fileName.substring(pos + 1);
+        }
+        return fileName;
+    }
+
 
     /**
      * 从url中获取文件后缀
@@ -124,26 +154,12 @@ public class WebUtils {
      */
     public static String encodeUrlFileName(String url) {
         String encodedFileName;
-        String fullFileName = WebUtils.getUrlParameterReg(url, "fullfilename");
-        if (fullFileName != null && fullFileName.length() > 0) {
-            try {
-                encodedFileName = URLEncoder.encode(fullFileName, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                return null;
-            }
-            String  urlStrr = url.toLowerCase();  //转换为小写对比
-            boolean wjl =kuayu("&fullfilename=", urlStrr);  //判断是否启用文件流
-            if(wjl){
-                url =  url.substring(0,url.lastIndexOf("&"));  //删除添加的文件流内容
-            }
-            String noQueryUrl = url.substring(0, url.indexOf("?"));
-            String parameterStr = url.substring(url.indexOf("?"));
-            parameterStr = parameterStr.replaceFirst(fullFileName, encodedFileName);
-            return noQueryUrl + parameterStr;
-        }
         String noQueryUrl = url.substring(0, url.contains("?") ? url.indexOf("?") : url.length());
         int fileNameStartIndex = noQueryUrl.lastIndexOf('/') + 1;
         int fileNameEndIndex = noQueryUrl.lastIndexOf('.');
+        if (fileNameEndIndex < fileNameStartIndex) {
+            return url;
+        }
         try {
             encodedFileName = URLEncoder.encode(noQueryUrl.substring(fileNameStartIndex, fileNameEndIndex), "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -183,7 +199,7 @@ public class WebUtils {
      *  判断地址是否正确
      * 高 2022/12/17
      */
-    public static boolean hefaurl (String url) {
+    public static boolean isValidUrl(String url) {
         String regStr = "^((https|http|ftp|rtsp|mms|file)://)";//[.?*]表示匹配的就是本身
         Pattern pattern = Pattern.compile(regStr);
         Matcher matcher = pattern.matcher(url);
@@ -227,11 +243,14 @@ public class WebUtils {
         try {
             return new String(Base64Utils.decodeFromString(source.replaceAll(" ", "+").replaceAll("\n", "")), charsets);
         } catch (Exception e) {
-            System.out.println("接入方法错误,或者未使用BASE64");
-            //  e.printStackTrace();
+           if (e.getMessage().toLowerCase().contains(BASE64_MSG)) {
+         LOGGER.error("url解码异常，接入方法错误未使用BASE64");
+        }else {
+        LOGGER.error("url解码异常，其他错误", e);
+          }
             return null;
         }
-    }
+        }
 
     /**
      * 获取 url 的 host

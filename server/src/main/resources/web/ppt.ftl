@@ -98,7 +98,7 @@
 </div>
 
 <!-- JavaSript ================================================== -->
-<script src="pptx/jquery-3.5.1.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
 <script src="pptx/jquery.contextMenu.js?v=11.2.5_20210128"></script>
 <script src="pptx/idocv/idocv_common.min.js"></script>
 <script src="pptx/jquery.mobile-events.min.js"></script>
@@ -107,14 +107,14 @@
     var resultData = {
         "code": 1,
         "name": "PPT预览",
-        "totalSize": ${imgurls?size},
+        "totalSize": ${imgUrls ? size},
         "curPage": 1,
         "totalPage": 1,
         "pageSize": 10,
         "titles": null,
         "data": [
             <#assign index = 0>
-            <#list imgurls as img>
+            <#list imgUrls as img>
             <#if index != 0>, </#if>{
                 "uuid": null,
                 "title": null,
