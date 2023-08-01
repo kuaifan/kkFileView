@@ -50,9 +50,9 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
-          tags: kuaifan/fileview:4.3.0-SNAPSHOT-RC21
+          tags: kuaifan/fileview:4.4.0-SNAPSHOT-RC21
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
