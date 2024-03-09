@@ -28,7 +28,7 @@
         }
         initParentMessage();
     }
-    
+
     /**
      * 初始化parent消息
      */
@@ -39,6 +39,39 @@
                 action: 'ready',
                 params: {}
             }, '*');
+        }
+    }
+
+    /**
+     * EEUI 事件
+     */
+    const eeuiEvents = {
+        preview: function (url) {
+            if (!url) {
+                return;
+            }
+            let t = window.top
+            let $A = null
+            while (t) {
+                if (t.$A) {
+                    $A = t.$A
+                    break
+                }
+                t = t.top
+            }
+            if ($A) {
+                $A.eeuiAppSendMessage({
+                    action: 'setPageData',
+                    data: {
+                        titleFixed: true,
+                        urlFixed: true,
+                    }
+                });
+                $A.eeuiAppSendMessage({
+                    action: 'createTarget',
+                    url: new URL(url, window.location.href).href,
+                });
+            }
         }
     }
 </script>

@@ -7,6 +7,9 @@
     <title>文件预览</title>
     <#include "*/commonHeader.ftl">
     <#include "*/needFilePasswordHeader.ftl">
+    <script type="text/javascript">
+        eeuiEvents.preview("${pdfUrl}");
+    </script>
 </head>
 <body style="overflow:hidden">
     <iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
