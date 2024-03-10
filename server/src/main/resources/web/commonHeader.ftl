@@ -50,28 +50,22 @@
             if (!url) {
                 return;
             }
-            let t = window.top
-            let $A = null
-            while (t) {
-                if (t.$A) {
-                    $A = t.$A
-                    break
-                }
-                t = t.top
-            }
-            if ($A) {
-                $A.eeuiAppSendMessage({
-                    action: 'setPageData',
-                    data: {
-                        titleFixed: true,
-                        urlFixed: true,
+            window.top.postMessage({
+                action: "eeuiAppSendMessage",
+                data: [
+                    {
+                        action: 'setPageData',
+                        data: {
+                            titleFixed: true,
+                            urlFixed: true,
+                        }
+                    },
+                    {
+                        action: 'createTarget',
+                        url: new URL(url, window.location.href).href,
                     }
-                });
-                $A.eeuiAppSendMessage({
-                    action: 'createTarget',
-                    url: new URL(url, window.location.href).href,
-                });
-            }
+                ]
+            }, "*")
         }
     }
 </script>
