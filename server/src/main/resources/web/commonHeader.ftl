@@ -56,6 +56,7 @@
                     {
                         action: 'setPageData',
                         data: {
+                            showProgress: true,
                             titleFixed: true,
                             urlFixed: true,
                         }
