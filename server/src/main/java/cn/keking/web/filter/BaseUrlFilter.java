@@ -68,8 +68,7 @@ public class BaseUrlFilter implements Filter {
             // 处理端口
             int serverPort = request.getServerPort();
             String portString = "";
-            if (!("http".equals(scheme) && serverPort == 80) && 
-                !("https".equals(scheme) && serverPort == 443)) {
+            if (serverPort != 80 && serverPort != 443 && serverPort > 0) {
                 portString = ":" + serverPort;
             }
             // 拼接 baseUrl
