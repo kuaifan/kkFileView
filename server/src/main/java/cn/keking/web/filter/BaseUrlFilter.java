@@ -48,8 +48,32 @@ public class BaseUrlFilter implements Filter {
             baseUrl = configBaseUrl;
         } else {
             //3、默认动态拼接 baseUrl
-            baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-                    + servletRequest.getContextPath() + "/";
+            String scheme = servletRequest.getHeader("X-Forwarded-Proto");
+            if (StringUtils.isBlank(scheme)) {
+                scheme = servletRequest.getHeader("X-Forwarded-Scheme");
+            }
+            if (StringUtils.isBlank(scheme)) {
+                scheme = servletRequest.getHeader("Scheme");
+            }
+            if (StringUtils.isBlank(scheme)) {
+                scheme = servletRequest.getHeader("X-Scheme");
+            }
+            if (StringUtils.isBlank(scheme)) {
+                scheme = request.getScheme();
+            }
+            // 转换为小写处理可能的大小写差异
+            scheme = scheme.toLowerCase();
+            // 获取服务器名称
+            String serverName = request.getServerName();
+            // 处理端口
+            int serverPort = request.getServerPort();
+            String portString = "";
+            if (!("http".equals(scheme) && serverPort == 80) && 
+                !("https".equals(scheme) && serverPort == 443)) {
+                portString = ":" + serverPort;
+            }
+            // 拼接 baseUrl
+            baseUrl = scheme + "://" + serverName + portString + servletRequest.getContextPath() + "/";
         }
 
         if (!baseUrl.endsWith("/")) {
