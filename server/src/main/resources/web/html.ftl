@@ -7,9 +7,12 @@
     <title>文件预览</title>
     <#include "*/commonHeader.ftl">
     <#include "*/needFilePasswordHeader.ftl">
+    <script type="text/javascript">
+        eeuiEvents.preview("${pdfUrl}");
+    </script>
 </head>
-<body>
-<iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
+<body style="overflow:hidden">
+    <iframe src="${pdfUrl}" width="100%" frameborder="0"></iframe>
 </body>
 
 <script type="text/javascript">
@@ -17,13 +20,13 @@
 </script>
 
 <script type="text/javascript">
-    document.getElementsByTagName('iframe')[0].height = document.documentElement.clientHeight - 10;
+    document.getElementsByTagName('iframe')[0].height = document.documentElement.clientHeight;
     /**
      * 页面变化调整高度
      */
     window.onresize = function () {
         var fm = document.getElementsByTagName("iframe")[0];
-        fm.height = window.document.documentElement.clientHeight - 10;
+        fm.height = window.document.documentElement.clientHeight;
     }
     /*初始化水印*/
     window.onload = function () {

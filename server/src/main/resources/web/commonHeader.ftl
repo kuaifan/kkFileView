@@ -26,6 +26,48 @@
                 watermark_angle: ${watermarkAngle},
             });
         }
+        initParentMessage();
+    }
+
+    /**
+     * 初始化parent消息
+     */
+    function initParentMessage() {
+        if (window.parent) {
+            window.parent.postMessage({
+                source: 'fileView',
+                action: 'ready',
+                params: {}
+            }, '*');
+        }
+    }
+
+    /**
+     * EEUI 事件
+     */
+    const eeuiEvents = {
+        preview: function (url) {
+            if (!url) {
+                return;
+            }
+            window.top.postMessage({
+                action: "eeuiAppSendMessage",
+                data: [
+                    {
+                        action: 'setPageData',
+                        data: {
+                            showProgress: true,
+                            titleFixed: true,
+                            urlFixed: true,
+                        }
+                    },
+                    {
+                        action: 'createTarget',
+                        url: new URL(url, window.location.href).href,
+                    }
+                ]
+            }, "*")
+        }
     }
 </script>
 

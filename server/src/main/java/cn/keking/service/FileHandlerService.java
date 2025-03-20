@@ -171,6 +171,9 @@ public class FileHandlerService implements InitializingBean {
                 if (line.contains("charset=gb2312")) {
                     line = line.replace("charset=gb2312", "charset=utf-8");
                 }
+                if (line.contains("</head>")) {
+                    sb.append("<meta id=\"viewport\" name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">");
+                }
                 sb.append(line);
             }
             // 添加sheet控制头

@@ -10,9 +10,8 @@
   <script type="text/javascript" src="js/jquery.ztree.core.js"></script>
         <style type="text/css">
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
-        h1 {font-size: 24px;line-height: 34px;text-align: center;}
         a {color:#3C6E31;text-decoration: underline;}
         a:hover {background-color:#3C6E31;color:white;}
         code {color: #2f332a;}
@@ -20,10 +19,6 @@
            max-width: 880px;
            text-align:center;
             margin:0 auto;
-            border-radius:3px;
-            box-shadow:rgba(0,0,0,0.15) 0 0 8px;
-            background:#FBFBFB;
-            border:1px solid #ddd;
             margin:1px auto;
             padding:5px;
        }
@@ -32,7 +27,6 @@
 </head>
 <body>
 <div class="zTreeDemoBackground left">
-<h1>kkFileView</h1>
     <ul id="treeDemo" class="ztree"></ul>
 </div>
 <script>
@@ -63,9 +57,9 @@ var keyword = getQueryParam(currentUrl, 'watermarkTxt');
         if (!treeNode.isParent) {
             var path = '${baseUrl}'+treeNode.id+"?kkCompressfileKey="+'${fileTree}'+"&kkCompressfilepath="+encodeURIComponent(treeNode.id)+"&fullfilename="+encodeURIComponent(treeNode.name);
            if (isNotEmpty(keyword)){
-             location.href = "${baseUrl}onlinePreview?url=" + encodeURIComponent(Base64.encode(path))+"&watermarkTxt="+keyword;
+             location.href = "${baseUrl}onlinePreview?button=back&url=" + encodeURIComponent(Base64.encode(path))+"&watermarkTxt="+keyword;
            }else{
-             location.href = "${baseUrl}onlinePreview?url=" + encodeURIComponent(Base64.encode(path));}
+             location.href = "${baseUrl}onlinePreview?button=back&url=" + encodeURIComponent(Base64.encode(path));}
          
         }
     }

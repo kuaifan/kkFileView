@@ -18,6 +18,24 @@
         }
     </script>
 
+    <style type="text/css">
+      .container-navbar {
+        display: flex;
+        align-items: center;
+      }
+      .container-navbar .nav-collapse {
+        flex: 1;
+      }
+      .slide-img-container {
+        right: 0px;
+      }
+      @media (max-width: 768px) {
+        .lnk-file-title {
+          display: none;
+        }
+      }
+    </style>
+
     <!--[if lt IE 9]>
     <script src="/static/bootstrap/js/html5shiv.js"></script>
     <![endif]-->
@@ -33,7 +51,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-        <div class="container-fluid">
+        <div class="container-fluid container-navbar">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

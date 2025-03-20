@@ -107,11 +107,24 @@ public class RarUtils {
     public static List<ZtreeNodeVo> getTree(String rootPath) {
         List<ZtreeNodeVo> nodes = new ArrayList<>();
         File file = new File(fileDir+rootPath);
+        
+        // Skip if the root is __MACOSX or .DS_Store
+        if (file.getName().equals("__MACOSX") || file.getName().equals(".DS_Store")) {
+            return nodes;
+        }
+        
         ZtreeNodeVo node = traverse(file);
-        nodes.add(node);
+        if (node != null) {
+            nodes.add(node);
+        }
         return nodes;
     }
     private static ZtreeNodeVo traverse(File file) {
+        // Skip __MACOSX directories and .DS_Store files
+        if (file.getName().equals("__MACOSX") || file.getName().equals(".DS_Store")) {
+            return null;
+        }
+        
         ZtreeNodeVo pathNodeVo = new ZtreeNodeVo();
         pathNodeVo.setId(file.getAbsolutePath().replace(fileDir, "").replace("\\", "/"));
         pathNodeVo.setName(file.getName());
@@ -124,7 +137,10 @@ public class RarUtils {
             }
             for (File subFile : subFiles) {
                 ZtreeNodeVo subNodeVo = traverse(subFile);
-                subNodeVos.add(subNodeVo);
+                // Only add non-null nodes (not __MACOSX or .DS_Store)
+                if (subNodeVo != null) {
+                    subNodeVos.add(subNodeVo);
+                }
             }
             pathNodeVo.setChildren(subNodeVos);
         }

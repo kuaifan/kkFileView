@@ -4,10 +4,11 @@
     <meta charset="utf-8" />
     <title>PDF图片预览</title>
     <#include "*/commonHeader.ftl">
+    <script src="js/jquery-3.6.1.min.js" type="text/javascript"></script>
     <script src="js/lazyload.js"></script>
     <style>
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         .container {
             width: 100%;
@@ -17,23 +18,23 @@
             text-align: center;
         }
         .my-photo {
-            max-width: 98%;
+            max-width: 100%;
             margin:0 auto;
             border-radius:3px;
             box-shadow:rgba(0,0,0,0.15) 0 0 8px;
             background:#FBFBFB;
-            border:1px solid #ddd;
-            margin:1px auto;
-            padding:5px;
         }
-
+        .container {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <#list imgUrls as img>
         <div class="img-area">
-            <img class="my-photo" alt="loading"  data-src="${img}" src="images/loading.gif">
+            <img class="my-photo" alt="loading"  data-src="${img}" src="images/grey.gif">
         </div>
     </#list>
 </div>
@@ -45,6 +46,23 @@
         /*初始化水印*/
         initWaterMark();
         checkImgs();
+        /*图片点击事件*/
+        if (window.parent) {
+            var array = [];
+            $(".img-area img").each(function(index, event) {
+                array.push($(event).attr("data-src"));
+                $(event).click(function() {
+                    window.parent.postMessage({
+                        source: 'fileView',
+                        action: 'picture',
+                        params: {
+                            index: index,
+                            array: array
+                        }
+                    }, "*");
+                });
+            });
+        }
     };
     window.onscroll = throttle(checkImgs);
     function changePreviewType(previewType) {

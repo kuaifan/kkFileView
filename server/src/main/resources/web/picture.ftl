@@ -8,7 +8,7 @@
     <script src="js/viewer.min.js"></script>
     <style>
         body {
-            background-color: #404040;
+            background-color: #F4F5F7;
         }
         #image { width: 800px; margin: 0 auto; font-size: 0;}
         #image li {  display: inline-block;width: 50px;height: 50px; margin-left: 1%; padding-top: 1%;}
@@ -24,17 +24,31 @@
         <#else>
             <#assign img="${baseUrl}${img}">
         </#if>
-        <li><img id="${img}"  url="${img}" src="${img}" style="display: none"></li>
+        <#if !img?contains("__MACOSX") && !img?contains(".DS_Store")>
+            <li><img id="${img}" url="${img}" src="${img}" style="display: none"></li>
+        </#if>
     </#list>
 </ul>
 
 <script>
+    var getQueryParam = function(param) {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams.get(param);
+    }
+    var button = getQueryParam('button') === 'back' ? true : false;
+
     var viewer = new Viewer(document.getElementById('image'), {
         url: 'src',
         navbar: false,
-        button: false,
+        button: button,
         backdrop: false,
-        loop : true
+        loop : true,
+        hidden: function () {
+            if (button) {
+                window.history.back();
+            }
+        }
     });
     document.getElementById("${currentUrl}").click();
 
