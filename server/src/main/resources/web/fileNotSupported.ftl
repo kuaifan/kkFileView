@@ -7,14 +7,17 @@
         body {
             margin: 0 auto;
             background-color: #CCB;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            overflow: auto;
         }
 
         .container {
-            width: 700px;
-            height: 700px;
-            max-width: 90%;
-            max-height: 90%;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 700px;
+            padding: 24px;
+            box-sizing: border-box;
         }
 
         img {
